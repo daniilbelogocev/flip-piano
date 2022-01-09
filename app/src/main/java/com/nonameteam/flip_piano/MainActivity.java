@@ -2,9 +2,11 @@ package com.nonameteam.flip_piano;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private Timer timer;
     private Timer frameTimer;
     private static MainActivity context;
+    public ViewGroup piecesParent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,39 +27,55 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.context = this;
         RotationService.initialize(this);
         this.pieces = new ArrayList<>();
-        this.timer = new Timer();
-        this.timer.schedule(new PiecesCreatorTask(), 3000, 5000);
+        this.piecesParent = findViewById(R.id.pieces_parent);
 
+        this.timer = new Timer();
+        this.timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(() -> {
+                    View v = new SimpleInflater(MainActivity.context.piecesParent).inflate(R.layout.piano_piece);
+                    RotationType l = getRandomLane();
+                    v.setTranslationX(getLaneOffset(l));
+                    MainActivity.context.pieces.add(new PianoPiece(v, l));
+                });
+            }
+        }, 3000, 5000);
 
         frameTimer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        for (int i = 0; i < MainActivity.context.pieces.size(); i++) {
-                            float y = MainActivity.context.pieces.get(i).view.getTranslationY();
-                            MainActivity.context.pieces.get(i).view.setTranslationY(y + 2);
-                        }
-
+                runOnUiThread(() -> {
+                    for (int i = 0; i < MainActivity.context.pieces.size(); i++) {
+                        float y = MainActivity.context.pieces.get(i).view.getTranslationY();
+                        MainActivity.context.pieces.get(i).view.setTranslationY(y + 2);
                     }
                 });
             }
         };
         frameTimer.schedule(task, 0, 50);
     }
-}
 
-class PiecesCreatorTask extends TimerTask {
-    @Override
-    public void run() {
+    private RotationType getRandomLane() {
+        return RotationType.values()[(int) Math.round(Math.random() * 2)];
+    }
 
+    private float getLaneOffset(RotationType l) {
+        if (l == RotationType.middle) return 0f;
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return (l == RotationType.left ? -1 : 1) * size.x / 3f;
     }
 }
 
 class PianoPiece {
     public View view;
     public RotationType lane;
+
+    public PianoPiece(View view, RotationType lane) {
+        this.view = view;
+        this.lane = lane;
+    }
 }
