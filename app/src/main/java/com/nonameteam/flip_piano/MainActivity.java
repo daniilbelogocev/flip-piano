@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private RotationType getRandomLane() {
-        return RotationType.values()[(int) Math.round(Math.random() * 2)];
+        return RotationType.values()[(int) Math.floor(Math.random() * 3)];
     }
 
     private float getLaneOffset(RotationType l) {
