@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     public TextView counterView;
     public View gameOverView;
     public int score;
+    public float speed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         this.piecesParent = findViewById(R.id.pieces_parent);
         this.counterView = findViewById(R.id.count);
         this.gameOverView = findViewById(R.id.game_over_image);
+        this.speed = 1f;
 
         this.timer = new Timer();
         this.timer.schedule(new TimerTask() {
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                         if (isHiddenFromScreen(MainActivity.context.pieces.get(i))) {
                             MainActivity.context.piecesParent.removeView(MainActivity.context.pieces.get(i).view);
                             MainActivity.context.pieces.remove(i);
+                            MainActivity.context.speed *= 1.2;
                             break;
                         }
                     }
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     for (int i = 0; i < MainActivity.context.pieces.size(); i++) {
                         PianoPiece p = MainActivity.context.pieces.get(i);
                         float y = p.view.getTranslationY();
-                        p.view.setTranslationY(y + 12);
+                        p.view.setTranslationY(y + 12 * MainActivity.context.speed);
 
                         if (isInBottom(p)) {
                             if (isRotationCorrect(p)) {
