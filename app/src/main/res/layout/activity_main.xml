@@ -27,6 +27,12 @@
             android:textColor="@android:color/black"
             android:textSize="50dp"
             tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/game_over" />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
