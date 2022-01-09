@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
                     View v = new SimpleInflater(MainActivity.context.piecesParent).inflate(R.layout.piano_piece);
                     RotationType l = getRandomLane();
                     v.setTranslationX(getLaneOffset(l));
+                    v.setTranslationY(-160);
                     MainActivity.context.pieces.add(new PianoPiece(v, l));
                 });
             }
