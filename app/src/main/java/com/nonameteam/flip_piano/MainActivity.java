@@ -49,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     for (int i = 0; i < MainActivity.context.pieces.size(); i++) {
                         float y = MainActivity.context.pieces.get(i).view.getTranslationY();
-                        MainActivity.context.pieces.get(i).view.setTranslationY(y + 2);
+                        MainActivity.context.pieces.get(i).view.setTranslationY(y + 12);
                     }
                 });
             }
         };
-        frameTimer.schedule(task, 0, 50);
+        frameTimer.schedule(task, 0, 20);
     }
 
     private RotationType getRandomLane() {
