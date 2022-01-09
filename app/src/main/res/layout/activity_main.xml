@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background = "@drawable/concept">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/pieces_parent">
-
-    </RelativeLayout>
+        android:id="@+id/pieces_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
