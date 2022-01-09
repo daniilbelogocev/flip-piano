@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private static MainActivity context;
     public ViewGroup piecesParent;
     public TextView counterView;
+    public View gameOverView;
     public int score;
 
     @Override
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         this.pieces = new ArrayList<>();
         this.piecesParent = findViewById(R.id.pieces_parent);
         this.counterView = findViewById(R.id.count);
+        this.gameOverView = findViewById(R.id.game_over_image);
 
         this.timer = new Timer();
         this.timer.schedule(new TimerTask() {
@@ -77,7 +79,9 @@ public class MainActivity extends AppCompatActivity {
                                 MainActivity.context.counterView.setText(String.valueOf(MainActivity.context.score));
                             } else {
                                 MainActivity.context.timer.cancel();
-                                Toast.makeText(MainActivity.context, "ВЫ ПРОИГРАЛИ", Toast.LENGTH_SHORT).show();
+                                MainActivity.context.piecesParent.removeView(MainActivity.context.pieces.get(i).view);
+                                MainActivity.context.pieces.remove(i);
+                                MainActivity.context.gameOverView.setVisibility(View.VISIBLE);
                             }
                         }
                     }

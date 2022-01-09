@@ -25,14 +25,15 @@
             android:layout_marginEnd="15dp"
             android:text="0"
             android:textColor="@android:color/black"
-            android:textSize="50dp"
+            android:textSize="50sp"
             tools:ignore="MissingConstraints" />
 
         <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/game_over" />
+            android:id="@+id/game_over_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/game_over"
+            android:visibility="gone"/>
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
