@@ -73,11 +73,10 @@ public class RotationService {
     }
 
     static RotationType format(float values[]) {
-        Log.d("x", String.format("%1$.1f",values[1]));
-        if (values[1] > 15) {
+        if (values[1] > 10) {
             return RotationType.left;
         }
-        else if (values[1] < -15) {
+        else if (values[1] < -10) {
             return RotationType.right;
         }
         else {
