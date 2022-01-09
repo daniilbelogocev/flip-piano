@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     public List<PianoPiece> pieces;
-    private Timer timer;
+    public Timer timer;
     private Timer frameTimer;
     private static MainActivity context;
     public ViewGroup piecesParent;
@@ -70,9 +71,14 @@ public class MainActivity extends AppCompatActivity {
                         float y = p.view.getTranslationY();
                         p.view.setTranslationY(y + 12);
 
-                        if (isInBottom(p) && isRotationCorrect(p)) {
-                            MainActivity.context.score++;
-                            MainActivity.context.counterView.setText(String.valueOf(MainActivity.context.score));
+                        if (isInBottom(p)) {
+                            if (isRotationCorrect(p)) {
+                                MainActivity.context.score++;
+                                MainActivity.context.counterView.setText(String.valueOf(MainActivity.context.score));
+                            } else {
+                                MainActivity.context.timer.cancel();
+                                Toast.makeText(MainActivity.context, "ВЫ ПРОИГРАЛИ", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 });
