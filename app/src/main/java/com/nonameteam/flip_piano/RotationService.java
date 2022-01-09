@@ -63,10 +63,13 @@ public class RotationService {
                 valuesResult[0] = (float) Math.toDegrees(valuesResult[0]);
                 valuesResult[1] = (float) Math.toDegrees(valuesResult[1]);
                 valuesResult[2] = (float) Math.toDegrees(valuesResult[2]);
-                Log.d("123", " " + format(valuesResult));
             }
         };
         timer.schedule(task, 0, 50);
+    }
+
+    public static RotationType getCurrentPhoneRotation() {
+        return format(valuesResult);
     }
 
     static RotationType format(float values[]) {

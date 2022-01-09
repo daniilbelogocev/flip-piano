@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        RotationService.initialize(this);
         this.pieces = new ArrayList<>();
         this.timer = new Timer();
         this.timer.schedule(new PiecesCreatorTask(), 3000, 5000);
